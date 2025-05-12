@@ -1,0 +1,407 @@
+/* --- Color Palette Definition --- */
+:root[data-theme="bold"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #ff0055;   /* Vivid Pink/Red */
+  --primary-color: #00ffd5;  /* Bright Cyan */
+  --secondary-color: #ffcc00; /* Bright Yellow */
+  --muted-color: #333333;   /* Dark Grey for containers */
+
+  /* Define slightly lighter/darker versions for borders/hovers if needed */
+  --muted-lighter: #404040;
+  --border-color: #444444; /* Slightly lighter than muted */
+
+  /* Define text color for placing on bright backgrounds */
+  --text-on-bright: #121212; /* Use dark text on yellow/cyan */
+  --header-height: 65px; /* Define header height as a variable */
+}
+
+/* --- Basic Reset & Body --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column; /* Keep stacking header + page-container */
+}
+
+h1, h2, h3 {
+    color: var(--text-color); /* Use main text color for headings */
+    margin-top: 0; /* Reset default margins often */
+    margin-bottom: 0.75em;
+}
+
+/* --- App Header (Top) --- */
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 25px;
+    background-color: var(--muted-color); /* Use muted for header background */
+    border-bottom: 1px solid var(--border-color);
+    height: var(--header-height); /* Use variable */
+    width: 100%;
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.logo-img {
+    height: 40px; /* Adjust as needed */
+    width: auto;   /* Maintain aspect ratio */
+}
+
+.app-header h1 {
+    font-size: 1.6em;
+    margin-bottom: 0; /* Remove default heading margin */
+}
+
+
+/* --- Layout (Sidebar + Main Content) --- */
+.page-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Prevent double scrollbars if header+container > 100vh */
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    flex: 0 0 260px;
+    background-color: var(--muted-color);
+    padding: 20px;
+    /* border-right: 1px solid var(--border-color); */ /* Optional border */
+    height: calc(100vh - var(--header-height)); /* Adjust height */
+    position: sticky;
+    top: var(--header-height); /* Stick below the header */
+    overflow-y: auto;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: var(--text-color); /* Ensure label text is visible */
+}
+
+.sidebar select,
+.sidebar input[type="text"], /* Apply to potential future inputs */
+.main-header input[type="search"], /* Also style search input */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select /* Style potential future selects */
+{
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--muted-lighter); /* Slightly lighter than container bg */
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+.sidebar select:focus,
+.main-header input[type="search"]:focus,
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Highlight with primary color on focus */
+    box-shadow: 0 0 0 2px rgba(0, 255, 213, 0.3); /* Subtle glow */
+}
+
+
+/* --- Main Content Area --- */
+.main-content {
+    flex-grow: 1;
+    padding: 25px 30px;
+    overflow-y: auto;
+    height: calc(100vh - var(--header-height)); /* Allow scrolling independent of sidebar */
+}
+
+/* Header within Main Content (Search + Add Button) */
+.main-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    /* Removed border and padding - handled by input/button styles */
+}
+
+.main-header button#toggleAddPromptBtn {
+    padding: 10px 15px;
+    background-color: var(--accent-color); /* Use accent for Add button */
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: filter 0.2s ease;
+}
+.main-header button#toggleAddPromptBtn:hover {
+    filter: brightness(115%); /* Make accent brighter on hover */
+}
+
+
+/* Add Prompt Form Section */
+.add-prompt-section {
+    background-color: var(--muted-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 20px 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+.add-prompt-section h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary-color); /* Use primary color for this heading */
+}
+
+/* Form specific styling */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Form Buttons */
+#addPromptForm button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: filter 0.2s ease;
+    margin-right: 10px;
+    font-size: 0.95em;
+}
+#addPromptForm button[type="submit"] { /* Submit button */
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+#addPromptForm button[type="button"]#cancelAddPromptBtn { /* Cancel button */
+    background-color: var(--muted-lighter); /* More subtle background */
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+#addPromptForm button:hover {
+    filter: brightness(115%);
+}
+#addPromptForm button[type="button"]#cancelAddPromptBtn:hover {
+    background-color: var(--border-color); /* Slightly darker on hover */
+    filter: none; /* Reset brightness filter for this one */
+}
+
+.status-message {
+    margin-top: 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+/* Use palette colors for status */
+.status-message.success { color: var(--primary-color); }
+.status-message.error { color: var(--accent-color); }
+
+/* Utility class to hide the form */
+.hidden {
+    display: none;
+}
+
+
+/* Prompt List Styling */
+#promptList {
+    margin-top: 20px;
+}
+
+.prompt-item {
+    background-color: var(--muted-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    word-wrap: break-word;
+    position: relative;
+    transition: border-color 0.2s ease;
+}
+.prompt-item:hover {
+    border-color: var(--primary-color); /* Highlight border on hover */
+}
+
+/* Copy button */
+.copy-button {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    background-color: var(--secondary-color); /* Yellow for copy */
+    color: var(--text-on-bright); /* Dark text on yellow */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+    opacity: 0.75;
+    font-weight: bold;
+}
+.prompt-item:hover .copy-button {
+    opacity: 1;
+}
+.copy-button:hover {
+    filter: brightness(110%);
+}
+.copy-button:active {
+     filter: brightness(100%);
+}
+.copy-button:disabled { /* Style for 'Copied!' */
+    background-color: var(--primary-color); /* Cyan for success */
+    color: var(--text-on-bright); /* Dark text on cyan */
+    cursor: default;
+    opacity: 1;
+    filter: none;
+}
+
+.prompt-item p {
+    margin: 0 0 10px 0;
+}
+
+.prompt-item .prompt-text {
+    font-size: 1.1em;
+    padding-right: 70px; /* Ensure space for copy button */
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    color: var(--text-color); /* Main text color */
+    line-height: 1.5;
+}
+
+.prompt-item .prompt-meta {
+    font-size: 0.85em;
+    color: var(--text-color); /* Use main text color, backgrounds provide distinction */
+    opacity: 0.9; /* Slightly mute meta text */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.prompt-item .prompt-meta span {
+    background-color: var(--muted-lighter); /* Use lighter muted for meta bg */
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.prompt-item .prompt-tags span {
+    display: inline-block;
+    background-color: var(--secondary-color); /* Yellow for tags */
+    color: var(--text-on-bright); /* Dark text on yellow */
+    padding: 3px 7px;
+    border-radius: 10px; /* Pill shape */
+    margin-right: 6px;
+    margin-bottom: 6px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.prompt-item .prompt-notes {
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.9;
+    background-color: rgba(0,0,0,0.1); /* Slightly darker transparent overlay */
+    border-left: 3px solid var(--primary-color); /* Cyan accent border */
+    padding: 10px 12px;
+    margin-top: 12px;
+    white-space: pre-wrap;
+    border-radius: 0 4px 4px 0; /* Slight rounding */
+}
+.prompt-item .prompt-notes strong {
+    color: var(--primary-color); /* Make "Notes:" label stand out */
+}
+
+#loadingMessage, #noResultsMessage {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: italic;
+    padding: 40px 20px;
+}
+.error {
+    color: var(--accent-color); /* Use accent color for errors */
+    font-weight: bold;
+    opacity: 1; /* Make errors fully opaque */
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column;
+        overflow: visible; /* Allow normal page scroll */
+    }
+
+    .app-header {
+        height: auto; /* Allow header to wrap if needed */
+        padding: 10px 15px;
+         position: sticky; /* Make header sticky on mobile */
+         top: 0;
+         z-index: 10; /* Ensure header stays above content */
+    }
+    .app-header h1 {
+        font-size: 1.3em;
+    }
+    .logo-img {
+        height: 30px;
+    }
+
+     /* Adjust sticky top/height for elements below sticky header */
+     :root[data-theme="bold"] {
+        --header-height-mobile: 51px; /* Approximate based on content */
+     }
+
+    .sidebar {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        position: static; /* Remove stickiness */
+        /* Adjust top/height calculation if needed, but static is simpler */
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .main-content {
+        padding: 15px;
+        height: auto; /* Allow content to determine height */
+        overflow-y: visible; /* Use main page scroll */
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+     .main-header button#toggleAddPromptBtn {
+         margin-top: 10px;
+     }
+
+     .prompt-item .prompt-text {
+        padding-right: 65px; /* Ensure space for copy button */
+    }
+}
