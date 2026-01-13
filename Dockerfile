@@ -28,6 +28,9 @@ COPY --from=builder /app /app
 
 WORKDIR /app
 
+# Set default port for Node.js in this container to avoid conflict with Nginx
+ENV PORT=3001
+
 # Expose port (Nginx will listen on this)
 EXPOSE 3000
 
